@@ -87,11 +87,11 @@ with left_col:
     st.divider()
     st.markdown("""
     **Analytical Framework:**
-    * **Methodology:** Hypothesis-driven secondary research[cite: 41].
+    * **Methodology:** Hypothesis-driven secondary research.
     * **NLP Pipeline:** Weighted VADER & TextBlob sentiment scoring.
-    * **Goal:** ROI-driven insights to support Enterprise Relationship Management[cite: 8].
+    * **Goal:** ROI-driven insights to support Enterprise Relationship Management.
     """)
-    st.info("Built by Abeinathan SK | MBA Business Analytics [cite: 2, 10]")
+    st.info("Built by Abeinathan SK | MBA Business Analytics")
 
 with right_col:
     if yt_url and run_btn:
@@ -108,11 +108,11 @@ with right_col:
         kpi2.metric("Market Pulse", "Positive", "Bullish")
         kpi3.metric("Key Theme", "Value/Quality")
 
-        # Visual Intelligence (Mirroring Power BI proficiency) [cite: 41]
+        # Visual Intelligence (Mirroring Power BI proficiency)
         st.subheader("Sentiment Distribution Trend")
         st.area_chart(df['score'], color="#1a6bff")
         
-        # Executive Summary Box (Storytelling Proficiency) [cite: 6, 8]
+        # Executive Summary Box (Storytelling Proficiency)
         st.success(f"""
         ### **Executive Product Summary**
         Based on the current data extraction:
@@ -121,7 +121,7 @@ with right_col:
         - **Actionable Insight:** Prioritize backend optimization to reduce churn among high-value technical users.
         """)
         
-        # Data & Querying Proficiency Check [cite: 41]
+        # Data & Querying Proficiency Check
         with st.expander("View Raw Sentiment Data"):
             st.dataframe(df, use_container_width=True)
             
