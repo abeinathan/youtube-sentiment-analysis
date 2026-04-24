@@ -16,22 +16,22 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap');
     
     /* Global Theme Overrides */
-    .stApp { background-color: #f5f4f0; } /* Matches --bg in style.css */
+    .stApp { background-color: #f5f4f0; } 
     
     h1, h2, h3, .stHeader {
         font-family: 'Syne', sans-serif !important;
-        color: #0e0e0e !important; /* Matches --ink */
+        color: #0e0e0e !important; 
         letter-spacing: -1px;
     }
     
     p, span, label {
         font-family: 'DM Sans', sans-serif !important;
-        color: #4a4a4a; /* Matches --ink-2 */
+        color: #4a4a4a; 
     }
 
     /* Custom Button Styling */
     .stButton>button {
-        background-color: #0e0e0e; /* Matches --ink */
+        background-color: #0e0e0e; 
         color: #ffffff;
         border-radius: 100px;
         padding: 0.6rem 2rem;
@@ -40,7 +40,7 @@ st.markdown("""
         transition: all 0.3s ease;
     }
     .stButton>button:hover {
-        background-color: #1a6bff !important; /* Matches --accent */
+        background-color: #1a6bff !important; 
         box-shadow: 0 8px 30px rgba(26,107,255,0.35);
     }
 
@@ -62,8 +62,7 @@ st.markdown("""
 analyzer = SentimentIntensityAnalyzer()
 
 def get_sentiment_brief(url):
-    # This simulates your extraction logic for the MVP
-    # In production, replace with YouTube Data API calls
+    # This simulates extraction logic for the MVP
     mock_feedback = [
         {"text": "Premium build quality, worth the price.", "score": 0.8},
         {"text": "The mobile app UI feels sluggish on Zorin OS.", "score": -0.4},
@@ -77,7 +76,6 @@ def get_sentiment_brief(url):
 left_col, right_col = st.columns([1, 2.2], gap="large")
 
 with left_col:
-    st.image("https://abeinathan.github.io/logo.png", width=60) # Placeholder for your logo
     st.markdown("### **Intelligence Input**")
     st.write("Analyze Voice of Customer (VoC) trends for any product or service.")
     
@@ -100,7 +98,6 @@ with right_col:
         
         # Process Data
         df = get_sentiment_brief(yt_url)
-        avg_sentiment = df['score'].mean()
         
         # Executive KPIs
         kpi1, kpi2, kpi3 = st.columns(3)
@@ -126,7 +123,7 @@ with right_col:
             st.dataframe(df, use_container_width=True)
             
     else:
-        # Initial State / Landing View
+        # Initial State / Landing View - FIX APPLIED HERE
         st.markdown("### **Waiting for Intelligence Input...**")
         st.write("Enter a link on the left to activate the NLP pipeline and generate brand-level strategic recommendations.")
-        st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000", opacity=0.3)
+        st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000")
