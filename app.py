@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon="📊"
 )
 
-# Injecting Abei's Portfolio CSS tokens for a seamless IFrame look
+# Injecting Abei's Portfolio CSS tokens with improved legibility fixes
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap');
@@ -26,7 +26,26 @@ st.markdown("""
     
     p, span, label {
         font-family: 'DM Sans', sans-serif !important;
-        color: #4a4a4a; 
+        color: #0e0e0e !important; 
+    }
+
+    /* FIX: Force URL Visibility */
+    a {
+        color: #1a6bff !important;
+        text-decoration: underline !important;
+        font-weight: 500;
+    }
+
+    /* FIX: Caption Text Color */
+    .stCaptionContainer p {
+        color: #4a4a4a !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* FIX: Expander Header Text Legibility */
+    .st-emotion-cache-p64951 p, .p-summary {
+        color: #0e0e0e !important;
+        font-weight: 600 !important;
     }
 
     /* Custom Button Styling */
@@ -42,13 +61,6 @@ st.markdown("""
     .stButton>button:hover {
         background-color: #1a6bff !important; 
         box-shadow: 0 8px 30px rgba(26,107,255,0.35);
-    }
-
-    /* Input Box Styling */
-    .stTextInput > div > div > input {
-        background-color: #ffffff;
-        border-radius: 12px;
-        border: 1px solid rgba(0,0,0,0.08);
     }
 
     /* UI Clean-up: Hide Streamlit Branding */
@@ -94,7 +106,8 @@ with left_col:
 with right_col:
     if yt_url and run_btn:
         st.markdown(f"## **Strategic Intelligence Dashboard**")
-        st.caption(f"Real-time Analysis for: {yt_url}")
+        # FIX: Using Markdown for the sub-header to ensure link visibility
+        st.markdown(f"**Real-time Analysis for:** [{yt_url}]({yt_url})")
         
         # Process Data
         df = get_sentiment_brief(yt_url)
@@ -118,12 +131,12 @@ with right_col:
         - **Actionable Insight:** Prioritize backend optimization to reduce churn among high-value technical users.
         """)
         
-        # Data & Querying Proficiency Check
-        with st.expander("View Raw Sentiment Data"):
+        # Data & Querying Proficiency Check (SQL & Pandas expertise)
+        st.markdown("### **Data Audit Trail**")
+        with st.expander("View Raw Sentiment Data Source"):
             st.dataframe(df, use_container_width=True)
             
     else:
-        # Initial State / Landing View - FIX APPLIED HERE
         st.markdown("### **Waiting for Intelligence Input...**")
         st.write("Enter a link on the left to activate the NLP pipeline and generate brand-level strategic recommendations.")
         st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000")
