@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon="📊"
 )
 
-# Injecting Abei's Portfolio CSS tokens with improved legibility fixes
+# Injecting UI Fixes for Button Visibility and Text Overlap
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap');
@@ -36,31 +36,31 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* FIX: Caption Text Color */
-    .stCaptionContainer p {
-        color: #4a4a4a !important;
-        font-size: 0.9rem !important;
-    }
-
-    /* FIX: Expander Header Text Legibility */
-    .st-emotion-cache-p64951 p, .p-summary {
-        color: #0e0e0e !important;
-        font-weight: 600 !important;
-    }
-
-    /* Custom Button Styling */
-    .stButton>button {
-        background-color: #0e0e0e; 
-        color: #ffffff;
+    /* FIX: Force Button Visibility (Fixes the "Invisible until hover" bug) */
+    div.stButton > button:first-child {
+        background-color: #1a6bff !important; /* High contrast blue */
+        color: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
         border-radius: 100px;
         padding: 0.6rem 2rem;
         font-weight: 700;
         border: none;
-        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px 0 rgba(26,107,255,0.39);
+        display: block !important;
     }
-    .stButton>button:hover {
-        background-color: #1a6bff !important; 
-        box-shadow: 0 8px 30px rgba(26,107,255,0.35);
+
+    div.stButton > button:hover {
+        background-color: #0e0e0e !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.23);
+        transform: translateY(-1px);
+    }
+
+    /* FIX: Data Audit Trail Overlap */
+    .audit-container {
+        margin-top: 40px !important; 
+        padding-top: 20px !important;
+        border-top: 1px solid #e0e0e0;
     }
 
     /* UI Clean-up: Hide Streamlit Branding */
@@ -74,13 +74,13 @@ st.markdown("""
 analyzer = SentimentIntensityAnalyzer()
 
 def get_sentiment_brief(url):
-    # This simulates extraction logic for the MVP
+    # Simulated extraction logic for the analyst portfolio
     mock_feedback = [
-        {"text": "Premium build quality, worth the price.", "score": 0.8},
-        {"text": "The mobile app UI feels sluggish on Zorin OS.", "score": -0.4},
-        {"text": "Customer support responded in minutes. Impressive.", "score": 0.9},
-        {"text": "Slightly overpriced for the feature set.", "score": -0.2},
-        {"text": "Best investment for my Business Analytics workflow.", "score": 0.85}
+        {"Comment Sample": "Premium build quality, worth the price.", "score": 0.8},
+        {"Comment Sample": "The mobile app UI feels sluggish on Zorin OS.", "score": -0.4},
+        {"Comment Sample": "Customer support responded in minutes. Impressive.", "score": 0.9},
+        {"Comment Sample": "Slightly overpriced for the feature set.", "score": -0.2},
+        {"Comment Sample": "Best investment for my Business Analytics workflow.", "score": 0.85}
     ]
     return pd.DataFrame(mock_feedback)
 
@@ -98,15 +98,14 @@ with left_col:
     st.markdown("""
     **Analytical Framework:**
     * **Methodology:** Hypothesis-driven secondary research.
-    * **NLP Pipeline:** Weighted VADER & TextBlob sentiment scoring.
-    * **Goal:** ROI-driven insights to support Enterprise Relationship Management.
+    * **NLP Pipeline:** Weighted VADER sentiment scoring.
+    * **Goal:** ROI-driven insights to support CRM strategy.
     """)
     st.info("Built by Abeinathan SK | MBA Business Analytics")
 
 with right_col:
     if yt_url and run_btn:
         st.markdown(f"## **Strategic Intelligence Dashboard**")
-        # FIX: Using Markdown for the sub-header to ensure link visibility
         st.markdown(f"**Real-time Analysis for:** [{yt_url}]({yt_url})")
         
         # Process Data
@@ -118,11 +117,11 @@ with right_col:
         kpi2.metric("Market Pulse", "Positive", "Bullish")
         kpi3.metric("Key Theme", "Value/Quality")
 
-        # Visual Intelligence (Mirroring Power BI proficiency)
+        # Visual Intelligence
         st.subheader("Sentiment Distribution Trend")
         st.area_chart(df['score'], color="#1a6bff")
         
-        # Executive Summary Box (Storytelling Proficiency)
+        # Executive Summary Box
         st.success(f"""
         ### **Executive Product Summary**
         Based on the current data extraction:
@@ -131,9 +130,10 @@ with right_col:
         - **Actionable Insight:** Prioritize backend optimization to reduce churn among high-value technical users.
         """)
         
-        # Data & Querying Proficiency Check (SQL & Pandas expertise)
+        # Data Audit Trail with forced spacing
+        st.markdown('<div class="audit-container"></div>', unsafe_allow_html=True)
         st.markdown("### **Data Audit Trail**")
-        with st.expander("View Raw Sentiment Data Source"):
+        with st.expander("Expand to view raw sentiment scores and datasets"):
             st.dataframe(df, use_container_width=True)
             
     else:
