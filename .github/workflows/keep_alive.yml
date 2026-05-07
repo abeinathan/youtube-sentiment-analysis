@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Streamlit App
-        run: curl -I https://youtube-sentiment-analysis.streamlit.app/
+        run: curl -I https://abei-sentimentanalysis.streamlit.app/
