@@ -2,8 +2,8 @@ name: Streamlit Keep Alive
 
 on:
   schedule:
-    - cron: '0 0 */3 * *' # Runs every 3 days
-  workflow_dispatch:      # Allows you to click a button to run it manually
+    - cron: '0 0 * * *' # Changed to run every 24 hours for better reliability
+  workflow_dispatch:      # Allows you to test it manually
 
 jobs:
   ping_app:
