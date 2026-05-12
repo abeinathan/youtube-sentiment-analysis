@@ -2,12 +2,13 @@ name: Streamlit Keep Alive
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Changed to run every 24 hours for better reliability
-  workflow_dispatch:      # Allows you to test it manually
+    - cron: '0 0 * * *' # Daily at midnight
+  workflow_dispatch:      # Allows manual testing
 
 jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
-        run: curl -I https://abei-sentimentanalysis.streamlit.app/
+      - name: Wake Up Call
+        # -sL follows redirects and stays silent; > /dev/null discards the HTML output
+        run: curl -sL https://abei-sentimentanalysis.streamlit.app/ > /dev/null
