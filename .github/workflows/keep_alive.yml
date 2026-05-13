@@ -9,6 +9,6 @@ jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: Wake Up Call
-        # -sL follows redirects and stays silent; > /dev/null discards the HTML output
+      - name: Full Wake-up Call
+        # -sL follows redirects and performs a GET; > /dev/null hides the output
         run: curl -sL https://abei-sentimentanalysis.streamlit.app/ > /dev/null
