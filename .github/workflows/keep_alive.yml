@@ -2,13 +2,25 @@ name: Streamlit Keep Alive
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Daily at midnight
-  workflow_dispatch:      # Allows manual testing
+    - cron: '0 0 * * *' # Evaluated daily at midnight
+  workflow_dispatch:      # Allows manual execution for testing
+
+permissions:
+  contents: write         # Grants permission to commit the operational heartbeat
 
 jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
-      - name: Full Wake-up Call
-        # -sL follows redirects and performs a GET; > /dev/null hides the output
-        run: curl -sL https://abei-sentimentanalysis.streamlit.app/ > /dev/null
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure Automated Author
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Execute Empty Heartbeat Commit
+        run: |
+          git commit --allow-empty -m "system: automated infrastructure heartbeat [skip ci]"
+          git push origin main
