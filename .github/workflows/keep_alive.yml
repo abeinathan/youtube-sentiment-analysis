@@ -19,18 +19,14 @@ jobs:
 
       - name: Ping Streamlit App
         run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          curl -s -o /dev/null -w "%{http_code}" \
             https://abei-sentimentanalysis.streamlit.app/ \
             --max-time 60 \
-            --retry 3 \
-            --retry-delay 10 \
-            -L)
-          echo "HTTP Status: $STATUS"
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
-            echo "App is alive!"
-          else
-            echo "Warning: App returned status $STATUS"
-          fi
+            --retry 2 \
+            --retry-delay 5 \
+            --max-redirs 20 \
+            -L || true
+          echo "Ping attempt complete"
 
       - name: Configure Git Author
         run: |
