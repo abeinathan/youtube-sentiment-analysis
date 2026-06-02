@@ -2,8 +2,8 @@ name: Streamlit Keep Alive
 
 on:
   schedule:
-    - cron: '0 */12 * * *'   # Runs every 12 hours (more reliable than once daily)
-  workflow_dispatch:           # Allows manual execution for testing
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,25 +12,32 @@ jobs:
   ping_app:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Ping Streamlit App
         run: |
-          curl -s -o /dev/null -w "%{http_code}" \
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             https://abei-sentimentanalysis.streamlit.app/ \
             --max-time 60 \
             --retry 3 \
             --retry-delay 10 \
-            -L
-          echo "Ping sent to Streamlit app"
+            -L)
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
+            echo "App is alive!"
+          else
+            echo "Warning: App returned status $STATUS"
+          fi
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Configure Automated Author
+      - name: Configure Git Author
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Execute Heartbeat Commit
+      - name: Heartbeat Commit
         run: |
-          git commit --allow-empty -m "system: automated infrastructure heartbeat [skip ci]"
-          git push origin main
+          git commit --allow-empty -m "chore: keep-alive heartbeat [skip ci]"
+          git push origin HEAD:main
