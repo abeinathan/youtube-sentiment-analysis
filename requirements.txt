@@ -5,3 +5,5 @@ pandas
 textblob
 
 vaderSentiment
+
+requests
