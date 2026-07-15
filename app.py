@@ -64,6 +64,39 @@ st.markdown("""
     header {visibility: hidden;}
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+
+    /* FIX: Expander header was inheriting the default dark theme,
+       making text invisible until hover and causing a repaint overlap. */
+    div[data-testid="stExpander"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    div[data-testid="stExpander"] summary {
+        background-color: #ffffff !important;
+        transition: none !important;
+    }
+
+    div[data-testid="stExpander"] summary:hover {
+        background-color: #f5f4f0 !important;
+    }
+
+    div[data-testid="stExpander"] summary p,
+    div[data-testid="stExpander"] summary span {
+        color: #0e0e0e !important;
+        font-weight: 600 !important;
+        opacity: 1 !important;
+    }
+
+    div[data-testid="stExpander"] svg {
+        fill: #0e0e0e !important;
+    }
+
+    div[data-testid="stExpanderDetails"] {
+        background-color: #ffffff !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
