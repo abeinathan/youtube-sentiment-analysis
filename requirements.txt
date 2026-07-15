@@ -1,9 +1,4 @@
 streamlit
-
 pandas
-
-textblob
-
 vaderSentiment
-
-requests
+google-api-python-client
